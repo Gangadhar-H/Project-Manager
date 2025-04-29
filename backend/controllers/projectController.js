@@ -1,10 +1,8 @@
-// controllers/projectController.js
+
 const Project = require('../models/Project');
 const { validationResult } = require('express-validator');
 
-// @desc    Create new project
-// @route   POST /api/projects
-// @access  Private
+
 exports.createProject = async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -38,9 +36,6 @@ exports.createProject = async (req, res) => {
     }
 };
 
-// @desc    Get all projects for logged in user
-// @route   GET /api/projects
-// @access  Private
 exports.getProjects = async (req, res) => {
     try {
         const projects = await Project.find({
@@ -61,9 +56,6 @@ exports.getProjects = async (req, res) => {
     }
 };
 
-// @desc    Get single project
-// @route   GET /api/projects/:id
-// @access  Private
 exports.getProject = async (req, res) => {
     try {
         const project = await Project.findById(req.params.id);
@@ -88,9 +80,6 @@ exports.getProject = async (req, res) => {
     }
 };
 
-// @desc    Update project
-// @route   PUT /api/projects/:id
-// @access  Private
 exports.updateProject = async (req, res) => {
     const { name, description } = req.body;
 
@@ -127,9 +116,6 @@ exports.updateProject = async (req, res) => {
     }
 };
 
-// @desc    Delete project
-// @route   DELETE /api/projects/:id
-// @access  Private
 exports.deleteProject = async (req, res) => {
     try {
         const project = await Project.findById(req.params.id);
@@ -138,12 +124,12 @@ exports.deleteProject = async (req, res) => {
             return res.status(404).json({ message: 'Project not found' });
         }
 
-        // Make sure user owns the project
+        // Check if the user owns the project
         if (project.user.toString() !== req.user.id) {
             return res.status(401).json({ message: 'Not authorized to delete this project' });
         }
 
-        await project.remove();
+        await project.deleteOne();
 
         res.status(200).json({
             success: true,
@@ -155,9 +141,7 @@ exports.deleteProject = async (req, res) => {
     }
 };
 
-// @desc    Add collaborator to project
-// @route   PUT /api/projects/:id/collaborators
-// @access  Private
+
 exports.addCollaborator = async (req, res) => {
     try {
         const { email } = req.body;

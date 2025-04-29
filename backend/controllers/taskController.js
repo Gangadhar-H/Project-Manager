@@ -1,11 +1,8 @@
-// controllers/taskController.js
+
 const Task = require('../models/Task');
 const Project = require('../models/Project');
 const { validationResult } = require('express-validator');
 
-// @desc    Create new task
-// @route   POST /api/tasks
-// @access  Private
 exports.createTask = async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -50,9 +47,6 @@ exports.createTask = async (req, res) => {
     }
 };
 
-// @desc    Get all tasks for a project
-// @route   GET /api/tasks/project/:projectId
-// @access  Private
 exports.getTasksByProject = async (req, res) => {
     try {
         const project = await Project.findById(req.params.projectId);
@@ -80,9 +74,6 @@ exports.getTasksByProject = async (req, res) => {
     }
 };
 
-// @desc    Get single task
-// @route   GET /api/tasks/:id
-// @access  Private
 exports.getTask = async (req, res) => {
     try {
         const task = await Task.findById(req.params.id).populate('project', 'name user collaborators');
@@ -107,9 +98,6 @@ exports.getTask = async (req, res) => {
     }
 };
 
-// @desc    Update task
-// @route   PUT /api/tasks/:id
-// @access  Private
 exports.updateTask = async (req, res) => {
     const { title, description, status, priority, dueDate } = req.body;
 
@@ -157,10 +145,6 @@ exports.updateTask = async (req, res) => {
         res.status(500).json({ message: 'Server Error' });
     }
 };
-
-// @desc    Delete task
-// @route   DELETE /api/tasks/:id
-// @access  Private
 exports.deleteTask = async (req, res) => {
     try {
         const task = await Task.findById(req.params.id).populate('project', 'user');
@@ -174,7 +158,7 @@ exports.deleteTask = async (req, res) => {
             return res.status(401).json({ message: 'Not authorized to delete this task' });
         }
 
-        await task.remove();
+        await task.deleteOne();
 
         res.status(200).json({
             success: true,
@@ -186,9 +170,6 @@ exports.deleteTask = async (req, res) => {
     }
 };
 
-// @desc    Add comment to task
-// @route   POST /api/tasks/:id/comments
-// @access  Private
 exports.addComment = async (req, res) => {
     try {
         const { text } = req.body;
