@@ -46,19 +46,19 @@ A full-stack Task Tracker application built with the MERN stack (MongoDB, Expres
 1. **Clone the repository**
 
 ## Install backend dependencies
-cd backend
-npm install
+- cd backend
+- npm install
 
 ## Install frontend dependencies
-cd ../frontend
-npm install
+- cd ../frontend
+- npm install
 
 ## Set up environment variables
 
-PORT=5000
-MONGO_URI=your_mongodb_connection_string
-JWT_SECRET=your_jwt_secret_key
-JWT_EXPIRE=30d
+- PORT=5000
+- MONGO_URI=your_mongodb_connection_string
+- JWT_SECRET=your_jwt_secret_key
+- JWT_EXPIRE=30d
 
 
 # Run the application
