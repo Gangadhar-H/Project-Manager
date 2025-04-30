@@ -16,7 +16,7 @@ const app = express();
 // Middleware
 app.use(express.json());
 app.use(cors({
-    origin: 'project-manager-phi-beryl.vercel.app', // replace with your frontend domain
+    origin: 'https://project-manager-nextfo5lm-gangadhar-hs-projects.vercel.app/', // replace with your frontend domain
     credentials: true
 }));
 app.use(morgan('dev'));
