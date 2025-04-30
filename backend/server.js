@@ -18,7 +18,7 @@ app.use(express.json());
 const allowedOrigins = [
     'https://project-manager-git-main-gangadhar-hs-projects.vercel.app',
     'https://project-manager-nextfo5lm-gangadhar-hs-projects.vercel.app',
-    'https://project-manager-phi-beryl.vercel.app/'
+    'https://project-manager-phi-beryl.vercel.app'
 ];
 app.use(cors({
     origin: function (origin, callback) {
