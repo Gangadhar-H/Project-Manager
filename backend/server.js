@@ -15,9 +15,19 @@ const app = express();
 
 // Middleware
 app.use(express.json());
+const allowedOrigins = [
+    'https://project-manager-git-main-gangadhar-hs-projects.vercel.app',
+    'https://project-manager-nextfo5lm-gangadhar-hs-projects.vercel.app'
+];
 app.use(cors({
-    origin: 'https://project-manager-nextfo5lm-gangadhar-hs-projects.vercel.app/', // replace with your frontend domain
-    credentials: true
+    origin: function (origin, callback) {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error("Not allowed by CORS"));
+        }
+    },
+    credentials: true,
 }));
 app.use(morgan('dev'));
 
